@@ -16,4 +16,8 @@ class Task(
     @PrimaryKey(autoGenerate=true)
     @ColumnInfo(name="ID")
     var id:Int
-)
+){
+    companion object{
+        var total_time=0f
+    }
+}
