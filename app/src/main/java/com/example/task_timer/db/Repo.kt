@@ -1,11 +1,8 @@
-package com.example.task_timer
+package com.example.task_timer.db
 
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.example.task_timer.db.Task
-import com.example.task_timer.db.TaskDB
-import com.example.task_timer.db.TaskDao
 
 //this class should not be used with in main or other activity
 
