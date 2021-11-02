@@ -13,6 +13,8 @@ class Task(
     var desc:String,
     @ColumnInfo(name="Time_spent")
     var Time_spent:Int,
+    @ColumnInfo(name="timer state")
+    var timer_state:Boolean,
     @PrimaryKey(autoGenerate=true)
     @ColumnInfo(name="ID")
     var id:Int
