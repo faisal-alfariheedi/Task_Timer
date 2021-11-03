@@ -50,27 +50,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:orientation="horizontal">
+                android:gravity="center|center_horizontal"
+                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/editbutton"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvtimer"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#00C33E3E"
-                    app:srcCompat="@drawable/ic_baseline_edit_24"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <ImageButton
-                    android:id="@+id/deletebutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#00C33E3E"
-                    app:srcCompat="@drawable/ic_baseline_delete_forever_24"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
+                    android:gravity="center"
+                    android:minWidth="50dp"
+                    android:text="00:00"
+                    android:textSize="34sp" />
             </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
