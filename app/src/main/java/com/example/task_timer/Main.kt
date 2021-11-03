@@ -5,7 +5,9 @@ import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,8 +18,10 @@ class Main : Fragment() {
         private lateinit var taskNameET: EditText
         private lateinit var taskDescET: EditText
         private lateinit var addBtn: Button
-        private lateinit var mainRV: RVAdapter
+        private lateinit var rvAdapter: RVAdapterMain
         private lateinit var ourRv: RecyclerView
+        val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +30,14 @@ class Main : Fragment() {
         // Inflate the layout for this fragment
         var v = inflater.inflate(R.layout.fragment_main, container, false)
         setHasOptionsMenu(true)
+        init(v)
 
+
+
+
+        return v
+    }
+    fun init(v: View) {
         taskTitle = v.findViewById(R.id.taskTitle)
         taskDescription = v.findViewById(R.id.taskDescription)
 
@@ -36,10 +47,13 @@ class Main : Fragment() {
         addBtn = v.findViewById(R.id.addBtn)
 
         ourRv = v.findViewById(R.id.ourRv)
-        mainRV = RVAdapter(requireContext())
+        rvAdapter = RVAdapterMain(requireContext())
+        ourRv.adapter=rvAdapter
 
-
-        return v
+        mvm.getAll().observe(viewLifecycleOwner,{
+            rvAdapter.setTask(it)
+            Toast.makeText(requireContext(),"updated",Toast.LENGTH_SHORT).show()
+        })
     }
 
 
@@ -51,7 +65,7 @@ class Main : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
 
         val item1 = menu!!.getItem(0)
-        item1.setTitle("switch to game")
+        item1.setTitle("switch to Editor")
 
 
         return super.onPrepareOptionsMenu(menu)
