@@ -19,8 +19,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     //this method will delete an element with the same id
-    fun delete(note: Task){
-        rep.delete(note)
+    fun delete(t: Task){
+        rep.delete(t)
     }
 
     //this method will return all the data from the database

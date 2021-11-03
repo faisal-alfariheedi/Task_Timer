@@ -41,7 +41,7 @@ class RVAdapter(val cont: Context): RecyclerView.Adapter<RVAdapter.ItemViewHolde
     }
     override fun getItemCount() = rv.size
 
-    fun setNote(n:List<Task>){
+    fun setTask(n:List<Task>){
         rv=n
         notifyDataSetChanged()
     }
