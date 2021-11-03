@@ -20,7 +20,9 @@ import android.os.CountDownTimer
 
 
 
-class RVAdapter(private val rv: ArrayList<Task>, val cont: Context,var sel:Int): RecyclerView.Adapter<RVAdapter.ItemViewHolder>()  {
+class RVAdapter(val cont: Context): RecyclerView.Adapter<RVAdapter.ItemViewHolder>()  {
+
+    private var rv: List<Task> = listOf()
 
     class ItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -38,6 +40,12 @@ class RVAdapter(private val rv: ArrayList<Task>, val cont: Context,var sel:Int):
         }
     }
     override fun getItemCount() = rv.size
+
+    fun setNote(n:List<Task>){
+        rv=n
+        notifyDataSetChanged()
+    }
+
 
     abstract class CountUpTimer(private val secondsInFuture: Int, countUpIntervalSeconds: Int) : CountDownTimer(secondsInFuture.toLong() * 1000, countUpIntervalSeconds.toLong() * 1000) {
 
