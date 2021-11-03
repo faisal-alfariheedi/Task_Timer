@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/main">
 
+    <fragment
+        android:id="@+id/main"
+        android:name="com.example.task_timer.main"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main_to_editor"
+            app:destination="@id/editor" />
+    </fragment>
+    <fragment
+        android:id="@+id/editor"
+        android:name="com.example.task_timer.Editor"
+        android:label="fragment_editor"
+        tools:layout="@layout/fragment_editor" >
+        <action
+            android:id="@+id/action_editor_to_main"
+            app:destination="@id/main" />
+    </fragment>
 </navigation>
