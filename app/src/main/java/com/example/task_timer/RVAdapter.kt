@@ -15,6 +15,10 @@ import com.example.task_timer.db.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import android.os.CountDownTimer
+
+
+
 
 class RVAdapter(private val rv: ArrayList<Task>, val cont: Context): RecyclerView.Adapter<RVAdapter.ItemViewHolder>()  {
 
@@ -35,4 +39,12 @@ class RVAdapter(private val rv: ArrayList<Task>, val cont: Context): RecyclerVie
     }
     override fun getItemCount() = rv.size
 
+    abstract class CountUpTimer(private val secondsInFuture: Int, countUpIntervalSeconds: Int) : CountDownTimer(secondsInFuture.toLong() * 1000, countUpIntervalSeconds.toLong() * 1000) {
+
+        abstract fun onCount(count: Int)
+
+        override fun onTick(msUntilFinished: Long) {
+            onCount(((secondsInFuture.toLong() * 1000 - msUntilFinished) / 1000).toInt())
+        }
+    }
 }
