@@ -1,17 +1,19 @@
 package com.example.task_timer
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.task_timer.db.Task
-import com.example.task_timer.db.repo
+import androidx.recyclerview.widget.RecyclerView
 
 
 class Editor : Fragment() {
+    private lateinit var rvAdapter: RVAdapter
+    private lateinit var ourRv: RecyclerView
     val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,8 +22,18 @@ class Editor : Fragment() {
         // Inflate the layout for this fragment
         var v= inflater.inflate(R.layout.fragment_editor, container, false)
         setHasOptionsMenu(true)
+        init(v)
 
         return v
+    }
+    fun init(v: View) {
+
+        ourRv=v.findViewById(R.id.ourRv)
+        rvAdapter=RVAdapter(requireContext())
+        mvm.getAll().observe(viewLifecycleOwner,{
+            rvAdapter.setTask(it)
+            Toast.makeText(requireContext(),"updated", Toast.LENGTH_SHORT).show()
+        })
     }
 
 
@@ -36,7 +48,7 @@ class Editor : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
 
         val item1 = menu!!.getItem(0)
-        item1.title = "switch to game"
+        item1.title = "switch to main"
 
 
         return super.onPrepareOptionsMenu(menu)
@@ -51,13 +63,6 @@ class Editor : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    fun raiseDialog (task : Task){
-
-        var dialog = CustomDialogFragment(task,this)
-        getFragmentManager()?.let { dialog.show(it,"customDialog") }
-
     }
 
 }
