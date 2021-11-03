@@ -1,15 +1,18 @@
 package com.example.task_timer
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.task_timer.db.Task
 
 
 class Main : Fragment() {
@@ -80,5 +83,26 @@ class Main : Fragment() {
         return super.onOptionsItemSelected(item)
     }
     //////////// dialog //////////////
+    /*
+    fun raiseDialog (task : Task) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val showTask = TextView(this)
+        showTask.text = task.desc
+        dialogBuilder
+            .setCancelable(false)
+            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, _ ->
+                dialog.cancel()
+            })
+           // .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
+             //   dialog.cancel()
+            //})
+        val alert = dialogBuilder.create()
+        alert.setTitle(task.name)
+        alert.setView(showTask)
+        alert.show()
+    }
 
-}
+     */
+
+    }
+

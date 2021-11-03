@@ -20,6 +20,12 @@ import android.os.CountDownTimer
 import android.widget.Toast
 import com.example.task_timer.db.repo
 import kotlinx.android.synthetic.main.rvlist.view.*
+import kotlinx.android.synthetic.main.rvlist.view.taskclick
+import kotlinx.android.synthetic.main.rvlist.view.tvtaskdesc
+import kotlinx.android.synthetic.main.rvlist.view.tvtaskname
+import kotlinx.android.synthetic.main.rvlisttime.view.*
+
+//import kotlinx.android.synthetic.main.rvlisttime.view.*
 
 
 class RVAdapterMain( val cont: Context,application: Application): RecyclerView.Adapter<RVAdapterMain.ItemViewHolder>()  {
@@ -54,9 +60,11 @@ class RVAdapterMain( val cont: Context,application: Application): RecyclerView.A
                         rv[position].timer_state = false
                     }
                 } else {
-                    Toast.makeText(cont,
+                    Toast.makeText(
+                        cont,
                         "wait sec to stop task then click another task",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                     rv[position].Time_spent = counter.time
                     rep.addedit(rv[position])
                     counter.cancel()
@@ -66,8 +74,23 @@ class RVAdapterMain( val cont: Context,application: Application): RecyclerView.A
                 }
 
             }
+/*
+            val task = rv[position]
+                    tvtaskname.text = task.name
+                    tvtaskdesc.text = task.desc
+                    tvtimer.text = task.Time_spent.toString()
+                    tvtaskdesc.setOnClickListener {
+                        if (cont is Editor)
+                            Main.raiseDialog(task)
+                }
+
+ */
         }
+
+
     }
+
+
 
     override fun getItemCount() = rv.size
 
