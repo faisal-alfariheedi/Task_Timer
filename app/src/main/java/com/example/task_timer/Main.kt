@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
@@ -18,6 +19,7 @@ class Main : Fragment() {
         private lateinit var addBtn: Button
         private lateinit var mainRV: RVAdapter
         private lateinit var ourRv: RecyclerView
+        val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,7 @@ class Main : Fragment() {
         addBtn = v.findViewById(R.id.addBtn)
 
         ourRv = v.findViewById(R.id.ourRv)
-        mainRV = RVAdapter(requireContext())
+        mainRV = RVAdapter(this)
 
 
         return v

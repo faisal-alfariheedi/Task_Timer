@@ -4,13 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.task_timer.db.Task
 import com.example.task_timer.db.repo
 
 
 class Editor : Fragment() {
-
+    val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +51,13 @@ class Editor : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun raiseDialog (task : Task){
+
+        var dialog = CustomDialogFragment(task,this)
+        getFragmentManager()?.let { dialog.show(it,"customDialog") }
+
     }
 
 }

@@ -16,11 +16,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.os.CountDownTimer
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.rvlist.view.*
 
 
-
-
-class RVAdapter(val cont: Context): RecyclerView.Adapter<RVAdapter.ItemViewHolder>()  {
+class RVAdapter(val cont: Fragment): RecyclerView.Adapter<RVAdapter.ItemViewHolder>()  {
 
     private var rv: List<Task> = listOf()
 
@@ -32,13 +32,21 @@ class RVAdapter(val cont: Context): RecyclerView.Adapter<RVAdapter.ItemViewHolde
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
+        val task = rv[position]
         holder.itemView.apply {
-
-
-
+            tvtaskname.text = task.name
+            tvtaskdesc.text = task.desc
+            editbutton.setOnClickListener {
+                if (cont is Editor)
+                    cont.raiseDialog(task)
+            }
+            deletebutton.setOnClickListener {
+                if (cont is Editor)
+                    cont.mvm.delete(task)
+            }
         }
     }
+
     override fun getItemCount() = rv.size
 
     fun setTask(n:List<Task>){
