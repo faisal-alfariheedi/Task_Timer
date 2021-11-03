@@ -2,12 +2,22 @@ package com.example.task_timer
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 
 
-class main : Fragment() {
-
+class Main : Fragment() {
+        private lateinit var taskTitle: TextView
+        private lateinit var taskDescription: TextView
+        private lateinit var taskNameET: EditText
+        private lateinit var taskDescET: EditText
+        private lateinit var addBtn: Button
+        private lateinit var mainRV: RVAdapter
+        private lateinit var ourRv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,9 +27,21 @@ class main : Fragment() {
         var v = inflater.inflate(R.layout.fragment_main, container, false)
         setHasOptionsMenu(true)
 
+        taskTitle = v.findViewById(R.id.taskTitle)
+        taskDescription = v.findViewById(R.id.taskDescription)
+
+        taskNameET = v.findViewById(R.id.taskNameET)
+        taskDescET = v.findViewById(R.id.taskDesET)
+
+        addBtn = v.findViewById(R.id.addBtn)
+
+        ourRv = v.findViewById(R.id.ourRv)
+        mainRV = RVAdapter(requireContext())
+
 
         return v
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)

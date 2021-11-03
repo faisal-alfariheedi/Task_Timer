@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.example.task_timer.db.Task
+import com.example.task_timer.db.repo
 
 
 class Editor : Fragment() {
@@ -33,11 +35,13 @@ class Editor : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
 
         val item1 = menu!!.getItem(0)
-        item1.setTitle("switch to game")
+        item1.title = "switch to game"
 
 
         return super.onPrepareOptionsMenu(menu)
     }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.m1 -> {
@@ -47,6 +51,5 @@ class Editor : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 }
