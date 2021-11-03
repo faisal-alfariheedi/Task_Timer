@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.task_timer.db.Task
 
 
 class Editor : Fragment() {
     private lateinit var rvAdapter: RVAdapter
     private lateinit var ourRv: RecyclerView
     val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class Editor : Fragment() {
     fun init(v: View) {
 
         ourRv=v.findViewById(R.id.ourRv)
-        rvAdapter=RVAdapter(requireContext())
+        rvAdapter=RVAdapter(this)
         mvm.getAll().observe(viewLifecycleOwner,{
             rvAdapter.setTask(it)
             Toast.makeText(requireContext(),"updated", Toast.LENGTH_SHORT).show()
@@ -63,6 +63,13 @@ class Editor : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    /////////////////////dialog////////////////////////////
+    fun raiseDialog (task : Task){
+
+        var dialog = CustomDialogFragment(task,this)
+        getFragmentManager()?.let { dialog.show(it,"customDialog") }
+
     }
 
 }
