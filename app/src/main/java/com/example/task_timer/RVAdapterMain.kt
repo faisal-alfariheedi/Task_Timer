@@ -18,9 +18,12 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
     private var TimeOff =-1
 
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var counter:CountUpTimer=object :CountUpTimer(100,1){}
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+
         return ItemViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rvlisttime, parent, false)
         )
@@ -28,84 +31,49 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
     override fun onBindViewHolder(holder: ItemViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val task = rv[position]
+        if(holder.counter!=null){
+            holder.counter.cancel()
+        }
+        holder.counter = object : CountUpTimer(5941, 1) {
+            override fun onCount(count: Int) {
+                holder.itemView.tvtimer.text = String.format(
+                    "%02d:%02d", (count / 60) % 99, count % 60)
+                Task.total_time.postValue(Task.total_time.value!!+1)
+            }
+            override fun onFinish() {}
+        }
 
         holder.itemView.apply {
-            var counter = object : CountUpTimer(5941, 1) {
-                override fun onCount(count: Int) {
-                    tvtimer.text = String.format("%02d:%02d", (count / 60) % 99, count % 60)
-                    if (count >= 5941) {
-                        cancel()
-                        timerover(holder, position, count)
-                    }
-                }
-
-                override fun onFinish() {}
-            }
             tvtaskname.text = task.name
             tvtaskdesc.text = task.desc
 
-            tvtaskdesc.setOnClickListener {
-                if (cont is Main)
-                    cont.raiseDialog(task)
-            }
+//            tvtaskdesc.setOnClickListener {
+//                if (cont is Main)
+//                    cont.raiseDialog(task)
+//            }
 
             taskclick.setOnClickListener {
-
-                if (TimeOff == -1) { // ckeck other task
-                    if (rv[position].timer_state == false) {
-                        counter.start = rv[position].Time_spent
-                        counter.start()
+                if (rv[position].timer_state == false) {
+                        holder.counter.start = rv[position].Time_spent
+                        holder.counter.start()
 
                         rv[position].timer_state = true
                         TimeOff = position
 
-                    }
                 } else {
                     Toast.makeText(
                         cont.context,
                         "wait sec to stop task then start another task",
                         Toast.LENGTH_SHORT
                     ).show()
-                    rv[TimeOff].Time_spent = counter.time
+                    rv[TimeOff].Time_spent = holder.counter.time
+                    rv[TimeOff].timer_state = false
                     if (cont is Main)
                         cont.mvm.addedit(rv[TimeOff])
-                    counter.cancel()
-                    rv[TimeOff].timer_state = false
-
-                    if (TimeOff == position) {
-                        TimeOff = -1
-                    } else {
-                        if (rv[position].timer_state == false) {
-                            counter.start = rv[position].Time_spent
-                            counter.start()
-                            rv[position].timer_state = true
-                            TimeOff = position
-
-                        } else {
-                            rv[position].Time_spent = counter.time
-                            if (cont is Main) {
-                                cont.mvm.addedit(rv[position])
-                            }
-                            tvtimer.text = String.format(
-                                "%02d:%02d",
-                                (counter.time / 60) % 99,
-                                counter.time % 60
-                            )
-                            counter.cancel()
-                            rv[position].timer_state = false
-                            TimeOff = -1
-                        }
-                    }
-
-
+                    holder.counter.cancel()
                 }
-
             }
-
-
         }
-
-
     }
 
     override fun getItemCount() = rv.size
@@ -140,7 +108,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
         override fun onTick(msUntilFinished: Long) {
             time=(((secondsInFuture.toLong() * 1000 - msUntilFinished) / 1000).toInt())+start
             onCount(time)
-            Task.total_time.postValue(Task.total_time.value!!+1)
+
         }
 
         override fun onFinish() {}

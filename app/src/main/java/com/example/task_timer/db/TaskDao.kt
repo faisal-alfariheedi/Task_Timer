@@ -9,6 +9,9 @@ interface TaskDao {
     @Query("SELECT * from Task")
     fun getall(): LiveData<List<Task>>
 
+    @Query("SELECT Time_spent from Task")
+    fun gettime(): LiveData<List<Int>>
+
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun addeditTask(task:Task)
 

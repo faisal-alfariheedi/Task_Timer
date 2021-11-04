@@ -12,10 +12,12 @@ import androidx.lifecycle.LiveData
 class repo{
     var db:TaskDao
     var list:LiveData<List<Task>>
+    var total_time:LiveData<List<Int>>
 
     constructor(cont:Application){
         db=TaskDB.getInstance(cont).TaskDao()
         list=db.getall()
+        total_time=db.gettime()
     }
 
     //this method will add the task to the data base but if there is conflict
@@ -32,6 +34,10 @@ class repo{
     //this method will return all the data from the database
     fun getAll(): LiveData<List<Task>> {
         return list
+    }
+
+    fun gettime(): LiveData<List<Int>> {
+        return total_time
     }
 
 

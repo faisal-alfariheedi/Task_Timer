@@ -41,6 +41,7 @@ class Main : Fragment() {
         return v
     }
     fun init(v: View) {
+
         tvtotal = v.findViewById(R.id.tvtotal)
         ourRv = v.findViewById(R.id.rvMain)
         rvAdapter = RVAdapterMain(this)
@@ -51,14 +52,17 @@ class Main : Fragment() {
             rvAdapter.setTask(it)
             Toast.makeText(requireContext(), "updated", Toast.LENGTH_SHORT).show()
         })
-        Task.total_time.observe(viewLifecycleOwner, {
-
+        mvm.gettime().observe(viewLifecycleOwner, {
+            var tot=0
+            for (i in it){
+                tot+=i
+            }
             tvtotal.text = "Total time spent on tasks : ${
                 String.format(
                     "%02d:%02d:%02d",
-                    it / 3600,
-                    (it / 60) % 60,
-                    it % 60
+                    tot / 3600,
+                    (tot / 60) % 60,
+                    tot % 60
                 )
             }"
         })

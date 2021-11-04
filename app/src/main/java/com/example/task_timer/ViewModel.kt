@@ -12,6 +12,7 @@ import com.example.task_timer.db.repo
 class ViewModel(application: Application) : AndroidViewModel(application) {
     var rep= repo(application)
     private var list=rep.getAll()
+    private var total_time=rep.gettime()
 
 
     //this method will add the task to the data base but if there is conflict
@@ -28,6 +29,10 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     //this method will return all the data from the database
     fun getAll(): LiveData<List<Task>> {
         return list
+    }
+
+    fun gettime():LiveData<List<Int>>{
+        return total_time
     }
 
 }
