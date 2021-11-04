@@ -28,7 +28,7 @@ var edtask=task
         rootView.btnCancel.setOnClickListener {
             dismiss()
         }
-        rootView.setOnClickListener {
+        rootView.btnChange.setOnClickListener {
             val etTitle=rootView.findViewById<EditText>(R.id.etTitle)
             val etDec=rootView.findViewById<EditText>(R.id.etDec)
             edtask.name=etTitle.toString()
