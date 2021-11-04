@@ -9,8 +9,12 @@
         <entry key="..\:/Users/Faisal/AndroidStudioProjects/Task_Timer/app/src/main/res/layout/fragment_main.xml" value="0.328125" />
         <entry key="..\:/Users/Faisal/AndroidStudioProjects/Task_Timer/app/src/main/res/layout/rvlist.xml" value="0.1796875" />
         <entry key="..\:/Users/Faisal/AndroidStudioProjects/Task_Timer/app/src/main/res/layout/rvlisttime.xml" value="0.328125" />
-        <entry key="..\:/Users/Zee/AndroidStudioProjects/taske/Task_Timer/app/src/main/res/layout/fragment_editor.xml" value="0.20364583333333333" />
-        <entry key="..\:/Users/Zee/AndroidStudioProjects/taske/Task_Timer/app/src/main/res/layout/fragment_main.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.1796875" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/fragment_editor.xml" value="0.6666666666666666" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/fragment_main.xml" value="0.1796875" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/rvlist.xml" value="0.1" />
+        <entry key="..\:/Users/csnor/AndroidStudioProjects/Task_Timer2/app/src/main/res/layout/rvlisttime.xml" value="0.22" />
       </map>
     </option>
   </component>
@@ -19,5 +23,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.6666666666666666" />
+      </ProjectState>
+    </option>
   </component>
 </project>
