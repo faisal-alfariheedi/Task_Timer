@@ -46,6 +46,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
         holder.itemView.apply {
             tvtaskname.text = task.name
             tvtaskdesc.text = task.desc
+            tvtimer.text=String.format("%02d:%02d", (task.Time_spent / 60) % 99, task.Time_spent % 60)
 
 //            tvtaskdesc.setOnClickListener {
 //                if (cont is Main)
@@ -54,10 +55,10 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
             taskclick.setOnClickListener {
                 if (rv[position].timer_state == false) {
-                        holder.counter.start = rv[position].Time_spent
-                        holder.counter.start()
-
-                        rv[position].timer_state = true
+                    holder.counter.settask(rv[position])
+                    holder.counter.start = rv[position].Time_spent
+                    holder.counter.start()
+                    rv[position].timer_state = true
                         TimeOff = position
 
                 } else {
@@ -66,10 +67,10 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
                         "wait sec to stop task then start another task",
                         Toast.LENGTH_SHORT
                     ).show()
-                    rv[TimeOff].Time_spent = holder.counter.time
-                    rv[TimeOff].timer_state = false
+                    rv[position].Time_spent = holder.counter.time
+                    rv[position].timer_state = false
                     if (cont is Main)
-                        cont.mvm.addedit(rv[TimeOff])
+                        cont.mvm.addedit(rv[position])
                     holder.counter.cancel()
                 }
             }
@@ -101,6 +102,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
     abstract class CountUpTimer(private var secondsInFuture: Int, countUpIntervalSeconds: Int,var start:Int=0) :
         CountDownTimer(secondsInFuture.toLong() * 1000, countUpIntervalSeconds.toLong() * 1000) {
         var time: Int=0
+        var t=Task("","")
 
 
         open fun onCount(count: Int) {}
@@ -109,6 +111,9 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
             time=(((secondsInFuture.toLong() * 1000 - msUntilFinished) / 1000).toInt())+start
             onCount(time)
 
+        }
+        fun settask(t:Task){
+            this.t=t
         }
 
         override fun onFinish() {}
