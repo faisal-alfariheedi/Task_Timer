@@ -2,11 +2,13 @@ package com.example.task_timer
 
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
 import kotlinx.android.synthetic.main.rvlisttime.view.*
@@ -18,6 +20,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
     private var TimeOff =-1
     lateinit var old:ItemViewHolder
     var oldt=Task("","")
+    val mvm by lazy { ViewModelProvider(cont).get(ViewModel::class.java)}
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var counter:CountUpTimer=object :CountUpTimer(100,1){}
@@ -34,6 +37,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
     override fun onBindViewHolder(holder: ItemViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val task = rv[position]
+
         if(holder.counter!=null){
             holder.counter.cancel()
         }
@@ -41,6 +45,9 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
             override fun onCount(count: Int) {
                 holder.itemView.tvtimer.text = String.format(
                     "%02d:%02d", (count / 60) % 99, count % 60)
+                Log.d("count1", "onCount: $count")
+                if(count>(0+start)){
+                mvm.total_time.postValue(mvm.total_time.value!!+1)}
             }
             override fun onFinish() {}
         }

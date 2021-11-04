@@ -3,6 +3,11 @@ package com.example.task_timer.db
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.CoroutinesRoom
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 //this class should not be used with in main or other activity
 
@@ -12,12 +17,13 @@ import androidx.lifecycle.LiveData
 class repo{
     var db:TaskDao
     var list:LiveData<List<Task>>
-    var total_time:LiveData<List<Int>>
+    var total_time: MutableLiveData<List<Int>>
 
     constructor(cont:Application){
         db=TaskDB.getInstance(cont).TaskDao()
         list=db.getall()
-        total_time=db.gettime()
+
+        total_time=MutableLiveData<List<Int>>().apply{CoroutineScope(Dispatchers.IO).launch{postValue(db.gettime())}}
     }
 
     //this method will add the task to the data base but if there is conflict
@@ -36,7 +42,7 @@ class repo{
         return list
     }
 
-    fun gettime(): LiveData<List<Int>> {
+    fun gettime(): MutableLiveData<List<Int>> {
         return total_time
     }
 

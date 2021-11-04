@@ -1,6 +1,7 @@
 package com.example.task_timer.db
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 
@@ -10,7 +11,7 @@ interface TaskDao {
     fun getall(): LiveData<List<Task>>
 
     @Query("SELECT Time_spent from Task")
-    fun gettime(): LiveData<List<Int>>
+    fun gettime(): List<Int>
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun addeditTask(task:Task)
