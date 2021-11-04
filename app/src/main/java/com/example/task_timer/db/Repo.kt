@@ -44,7 +44,9 @@ class repo{
     }
     class delTask(var db: TaskDao) : AsyncTask<Task, Void, String>(){
         override fun doInBackground(vararg p0: Task?): String {
+            Task.total_time.postValue(Task.total_time.value!!-p0[0]!!.Time_spent)
             db.deleteTask(p0[0]!!)
+
             return ""
         }
     }

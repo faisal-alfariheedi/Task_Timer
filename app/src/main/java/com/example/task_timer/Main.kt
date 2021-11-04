@@ -42,7 +42,16 @@ class Main : Fragment() {
     }
     fun init(v: View) {
         tvtotal = v.findViewById(R.id.tvtotal)
-        Task.total_time.observe(viewLifecycleOwner, {
+        ourRv = v.findViewById(R.id.rvMain)
+        rvAdapter = RVAdapterMain(this)
+        ourRv.adapter = rvAdapter
+        ourRv.layoutManager = LinearLayoutManager(requireContext())
+
+        mvm.getAll().observe(viewLifecycleOwner, {
+            rvAdapter.setTask(it)
+            Toast.makeText(requireContext(), "updated", Toast.LENGTH_SHORT).show()
+        })
+        mvm.gettotal().observe(viewLifecycleOwner, {
 
             tvtotal.text = "Total time spent on tasks : ${
                 String.format(
@@ -53,16 +62,6 @@ class Main : Fragment() {
                 )
             }"
         })
-        ourRv = v.findViewById(R.id.rvMain)
-        rvAdapter = RVAdapterMain(this)
-        ourRv.adapter = rvAdapter
-        ourRv.layoutManager = LinearLayoutManager(requireContext())
-
-        mvm.getAll().observe(viewLifecycleOwner, {
-            rvAdapter.setTask(it)
-            Toast.makeText(requireContext(), "updated", Toast.LENGTH_SHORT).show()
-        })
-
         CoroutineScope(Dispatchers.IO).launch {
             var temp=mvm.getAll().value
             if (temp != null) {

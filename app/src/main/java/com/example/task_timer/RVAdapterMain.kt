@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
 import kotlinx.android.synthetic.main.rvlisttime.view.*
+import kotlin.system.exitProcess
 
 
 class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.ItemViewHolder>()  {
@@ -30,11 +31,11 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
         holder.itemView.apply {
             var counter = object : CountUpTimer(5941, 1) {
-                override fun onCount(count: Int){
-                    tvtimer.text=String.format("%02d:%02d", (count / 60) % 99, count % 60)
-                    if (count>=5941) {
+                override fun onCount(count: Int) {
+                    tvtimer.text = String.format("%02d:%02d", (count / 60) % 99, count % 60)
+                    if (count >= 5941) {
                         cancel()
-                        timerover(holder,position,count)
+                        timerover(holder, position, count)
                     }
                 }
 
@@ -52,7 +53,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
                 if (TimeOff == -1) { // ckeck other task
                     if (rv[position].timer_state == false) {
-                        counter.start=rv[position].Time_spent
+                        counter.start = rv[position].Time_spent
                         counter.start()
 
                         rv[position].timer_state = true
@@ -66,28 +67,33 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
                         Toast.LENGTH_SHORT
                     ).show()
                     rv[TimeOff].Time_spent = counter.time
-                    if(cont is Main)
+                    if (cont is Main)
                         cont.mvm.addedit(rv[TimeOff])
                     counter.cancel()
                     rv[TimeOff].timer_state = false
 
-                    if(TimeOff==position){
-                        TimeOff=-1
-                    }else{
+                    if (TimeOff == position) {
+                        TimeOff = -1
+                    } else {
                         if (rv[position].timer_state == false) {
-                            counter.start=rv[position].Time_spent
+                            counter.start = rv[position].Time_spent
                             counter.start()
                             rv[position].timer_state = true
                             TimeOff = position
 
                         } else {
-                        rv[position].Time_spent = counter.time
-                        if(cont is Main)
-                            cont.mvm.addedit(rv[position])
-                        counter.cancel()
-                        tvtimer.text = task.Time_spent.toString()
-                        rv[position].timer_state = false
-                            TimeOff=-1
+                            rv[position].Time_spent = counter.time
+                            if (cont is Main) {
+                                cont.mvm.addedit(rv[position])
+                            }
+                            tvtimer.text = String.format(
+                                "%02d:%02d",
+                                (counter.time / 60) % 99,
+                                counter.time % 60
+                            )
+                            counter.cancel()
+                            rv[position].timer_state = false
+                            TimeOff = -1
                         }
                     }
 
@@ -95,8 +101,6 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
                 }
 
             }
-
-
 
 
         }
@@ -107,11 +111,14 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
     override fun getItemCount() = rv.size
 
     fun timerover(holder: ItemViewHolder, position: Int, count: Int) {
+        if(count>5943){
+            exitProcess(0)
+        }
         holder.itemView.apply {
             rv[position].Time_spent = count
             if (cont is Main)
                 cont.mvm.addedit(rv[position])
-            tvtimer.text = rv[position].Time_spent.toString()
+            tvtimer.text = String.format("%02d:%02d", (count / 60) % 99, count % 60)
             rv[position].timer_state = false
             TimeOff = -1
         }
@@ -133,7 +140,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
         override fun onTick(msUntilFinished: Long) {
             time=(((secondsInFuture.toLong() * 1000 - msUntilFinished) / 1000).toInt())+start
             onCount(time)
-
+            Task.total_time.postValue(Task.total_time.value!!+1)
         }
 
         override fun onFinish() {}
