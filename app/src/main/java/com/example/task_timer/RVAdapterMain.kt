@@ -41,7 +41,6 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
             override fun onCount(count: Int) {
                 holder.itemView.tvtimer.text = String.format(
                     "%02d:%02d", (count / 60) % 99, count % 60)
-                Task.total_time.postValue(Task.total_time.value!!+1)
             }
             override fun onFinish() {}
         }
@@ -57,36 +56,46 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 //            }
 
             taskclick.setOnClickListener {
-                if (rv[position].timer_state == false) {
-                    if(old!=holder){
-                        oldt.Time_spent=old.counter.time
-                        oldt.timer_state=false
-                        old.counter.cancel()
-                        if (cont is Main&&oldt.name.isNotBlank())
-                            cont.mvm.addedit(oldt)
+                click(holder,position)
+            }
+            taskclick2.setOnClickListener {
+                click(holder,position)
 
-                    }
-                    holder.counter.settask(rv[position])
-                    holder.counter.start = rv[position].Time_spent
-                    holder.counter.start()
-                    old=holder
-                    oldt=rv[position]
-                    rv[position].timer_state = true
-                        TimeOff = position
+            }
 
-                } else {
-                    Toast.makeText(
-                        cont.context,
-                        "wait sec to stop task then start another task",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    rv[position].Time_spent = holder.counter.time
-                    rv[position].timer_state = false
-                    if (cont is Main)
-                        cont.mvm.addedit(rv[position])
-                    holder.counter.cancel()
+        }
+    }
+    fun click(holder: ItemViewHolder, position: Int) {
+        holder.itemView.apply {
+            if (rv[position].timer_state == false) {
+                if (old != holder) {
+                    oldt.Time_spent = old.counter.time
+                    oldt.timer_state = false
+                    old.counter.cancel()
+                    if (cont is Main && oldt.name.isNotBlank())
+                        cont.mvm.addedit(oldt)
 
                 }
+                holder.counter.settask(rv[position])
+                holder.counter.start = rv[position].Time_spent
+                holder.counter.start()
+                old = holder
+                oldt = rv[position]
+                rv[position].timer_state = true
+                TimeOff = position
+
+            } else {
+                Toast.makeText(
+                    cont.context,
+                    "wait sec to stop task then start another task",
+                    Toast.LENGTH_SHORT
+                ).show()
+                rv[position].Time_spent = holder.counter.time
+                rv[position].timer_state = false
+                if (cont is Main)
+                    cont.mvm.addedit(rv[position])
+                holder.counter.cancel()
+
             }
         }
     }
