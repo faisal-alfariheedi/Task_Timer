@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
 
@@ -53,6 +54,7 @@ class Editor : Fragment() {
 
         ourRv=v.findViewById(R.id.ourRv)
         rvAdapter=RVAdapter(this)
+        ourRv.layoutManager = LinearLayoutManager(requireContext())
         mvm.getAll().observe(viewLifecycleOwner,{
             rvAdapter.setTask(it)
             Toast.makeText(requireContext(),"updated", Toast.LENGTH_SHORT).show()

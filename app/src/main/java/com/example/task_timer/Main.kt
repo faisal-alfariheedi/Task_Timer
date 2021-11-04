@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
 import kotlinx.coroutines.CoroutineScope
@@ -55,6 +56,7 @@ class Main : Fragment() {
         ourRv = v.findViewById(R.id.rvMain)
         rvAdapter = RVAdapterMain(this)
         ourRv.adapter = rvAdapter
+        ourRv.layoutManager = LinearLayoutManager(requireContext())
 
         mvm.getAll().observe(viewLifecycleOwner, {
             rvAdapter.setTask(it)
