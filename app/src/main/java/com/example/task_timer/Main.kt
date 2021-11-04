@@ -95,10 +95,10 @@ class Main : Fragment() {
         return super.onOptionsItemSelected(item)
     }
     //////////// dialog //////////////
-    /*
+
     fun raiseDialog (task : Task) {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val showTask = TextView(this)
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val showTask = TextView(requireContext())
         showTask.text = task.desc
         dialogBuilder
             .setCancelable(false)
@@ -114,7 +114,7 @@ class Main : Fragment() {
         alert.show()
     }
 
-     */
+
 
     }
 

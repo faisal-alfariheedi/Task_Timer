@@ -59,17 +59,17 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
                 }
 
             }
-/*
+
             val task = rv[position]
                     tvtaskname.text = task.name
                     tvtaskdesc.text = task.desc
                     tvtimer.text = task.Time_spent.toString()
                     tvtaskdesc.setOnClickListener {
-                        if (cont is Editor)
-                            Main.raiseDialog(task)
+                        if (cont is Main)
+                            cont.raiseDialog(task)
                 }
 
- */
+
         }
 
 
