@@ -12,7 +12,7 @@ import com.example.task_timer.db.repo
 class ViewModel(application: Application) : AndroidViewModel(application) {
     var rep= repo(application)
     private var list=rep.getAll()
-    private var total_time=totalcalc()
+
 
     //this method will add the task to the data base but if there is conflict
     // with the id the element in database will be updated
@@ -29,14 +29,5 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     fun getAll(): LiveData<List<Task>> {
         return list
     }
-    fun gettotal():LiveData<Int>{
-        return total_time
-    }
-    fun totalcalc():LiveData<Int>{
-        var t= MutableLiveData<Int>().apply {postValue(0)}
-        for(i in list.value!!){
-            t.postValue(t.value!!+i.Time_spent)
-        }
-        return t
-    }
+
 }

@@ -64,9 +64,8 @@
             android:text="@string/add_task"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ourRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/rvlist" />
+            android:id="@+id/ourRv"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,8 @@ class Editor : Fragment() {
 
         ourRv=v.findViewById(R.id.ourRv)
         rvAdapter=RVAdapter(this)
-        ourRv.layoutManager = LinearLayoutManager(requireContext())
+        ourRv.adapter=rvAdapter
+        ourRv.layoutManager = LinearLayoutManager(this.context)
         mvm.getAll().observe(viewLifecycleOwner,{
             rvAdapter.setTask(it)
             Toast.makeText(requireContext(),"updated", Toast.LENGTH_SHORT).show()

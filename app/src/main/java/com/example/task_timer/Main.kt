@@ -51,7 +51,7 @@ class Main : Fragment() {
             rvAdapter.setTask(it)
             Toast.makeText(requireContext(), "updated", Toast.LENGTH_SHORT).show()
         })
-        mvm.gettotal().observe(viewLifecycleOwner, {
+        Task.total_time.observe(viewLifecycleOwner, {
 
             tvtotal.text = "Total time spent on tasks : ${
                 String.format(
