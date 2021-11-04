@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2E4053"
     android:layout_margin="8dp"
     tools:context=".Main">
 
@@ -17,8 +16,12 @@
             android:id="@+id/tvtotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#0099ff"
             android:text="Total time spent on tasks : 00:00:00"
-            android:textSize="42sp" />
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="normal|bold|italic" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMain"
