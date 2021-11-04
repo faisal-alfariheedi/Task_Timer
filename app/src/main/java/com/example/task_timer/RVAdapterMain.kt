@@ -16,14 +16,17 @@ import kotlin.system.exitProcess
 class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.ItemViewHolder>()  {
     private var rv: List<Task> = listOf()
     private var TimeOff =-1
-
+    lateinit var old:ItemViewHolder
+    var oldt=Task("","")
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var counter:CountUpTimer=object :CountUpTimer(100,1){}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-
+        old=ItemViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.rvlisttime, parent, false)
+        )
         return ItemViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rvlisttime, parent, false)
         )
@@ -55,9 +58,19 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
 
             taskclick.setOnClickListener {
                 if (rv[position].timer_state == false) {
+                    if(old!=holder){
+                        oldt.Time_spent=old.counter.time
+                        oldt.timer_state=false
+                        old.counter.cancel()
+                        if (cont is Main&&oldt.name.isNotBlank())
+                            cont.mvm.addedit(oldt)
+
+                    }
                     holder.counter.settask(rv[position])
                     holder.counter.start = rv[position].Time_spent
                     holder.counter.start()
+                    old=holder
+                    oldt=rv[position]
                     rv[position].timer_state = true
                         TimeOff = position
 
