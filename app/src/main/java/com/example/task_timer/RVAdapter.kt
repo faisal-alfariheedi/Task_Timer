@@ -1,22 +1,12 @@
 package com.example.task_timer
 
-import android.content.Context
-import android.provider.ContactsContract
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import android.os.CountDownTimer
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.rvlist.view.*
 
 

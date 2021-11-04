@@ -1,36 +1,18 @@
 package com.example.task_timer
 
-import android.app.Application
-import android.content.Context
-import android.provider.ContactsContract
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import android.os.CountDownTimer
-import android.widget.Toast
-import com.example.task_timer.db.repo
-import kotlinx.android.synthetic.main.rvlist.view.*
-import kotlinx.android.synthetic.main.rvlist.view.taskclick
-import kotlinx.android.synthetic.main.rvlist.view.tvtaskdesc
-import kotlinx.android.synthetic.main.rvlist.view.tvtaskname
 import kotlinx.android.synthetic.main.rvlisttime.view.*
 
-//import kotlinx.android.synthetic.main.rvlisttime.view.*
 
-
-class RVAdapterMain( val cont: Context,application: Application): RecyclerView.Adapter<RVAdapterMain.ItemViewHolder>()  {
+class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.ItemViewHolder>()  {
     private var rv: List<Task> = listOf()
-    var rep = repo(application)
     private var TimeOff = true
     var counter = object : CountUpTimer(30, 1) {}
 
@@ -45,6 +27,7 @@ class RVAdapterMain( val cont: Context,application: Application): RecyclerView.A
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.itemView.apply {
+
             taskclick.setOnClickListener {
 
                 if (TimeOff == true) { // ckeck other task
@@ -55,18 +38,20 @@ class RVAdapterMain( val cont: Context,application: Application): RecyclerView.A
 
                     } else {
                         rv[position].Time_spent = counter.time
-                        rep.addedit(rv[position])
+                        if(cont is Main)
+                            cont.mvm.addedit(rv[position])
                         counter.cancel()
                         rv[position].timer_state = false
                     }
                 } else {
                     Toast.makeText(
-                        cont,
+                        cont.context,
                         "wait sec to stop task then click another task",
                         Toast.LENGTH_SHORT
                     ).show()
                     rv[position].Time_spent = counter.time
-                    rep.addedit(rv[position])
+                    if(cont is Main)
+                        cont.mvm.addedit(rv[position])
                     counter.cancel()
                     rv[position].timer_state = false
                     TimeOff = true

@@ -23,7 +23,7 @@
             android:text="Task Name"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:background="#777676"
             />
 
@@ -31,7 +31,7 @@
             android:id="@+id/taskNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:hint="Enter Task Name"
             android:inputType="textPersonName" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:background="#777676"
             android:text="Task Description" />
 
@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Task Description"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/addBtn"

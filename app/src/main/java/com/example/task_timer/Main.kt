@@ -13,14 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task_timer.db.Task
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class Main : Fragment() {
-        private lateinit var taskTitle: TextView
-        private lateinit var taskDescription: TextView
-        private lateinit var taskNameET: EditText
-        private lateinit var taskDescET: EditText
-        private lateinit var addBtn: Button
+        private lateinit var tvtotal:TextView
         private lateinit var rvAdapter: RVAdapterMain
         private lateinit var ourRv: RecyclerView
         val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
@@ -41,22 +40,35 @@ class Main : Fragment() {
         return v
     }
     fun init(v: View) {
-        taskTitle = v.findViewById(R.id.taskTitle)
-        taskDescription = v.findViewById(R.id.taskDescription)
+        tvtotal = v.findViewById(R.id.tvtotal)
+        Task.total_time.observe(viewLifecycleOwner, {
 
-        taskNameET = v.findViewById(R.id.taskNameET)
-        taskDescET = v.findViewById(R.id.taskDesET)
-
-        addBtn = v.findViewById(R.id.addBtn)
-
-        ourRv = v.findViewById(R.id.ourRv)
-        rvAdapter = RVAdapterMain(requireContext())
-        ourRv.adapter=rvAdapter
-
-        mvm.getAll().observe(viewLifecycleOwner,{
-            rvAdapter.setTask(it)
-            Toast.makeText(requireContext(),"updated",Toast.LENGTH_SHORT).show()
+            tvtotal.text = "Total time spent on tasks : ${
+                String.format(
+                    "%02d:%02d:%02d",
+                    it / 3600,
+                    (it / 60) % 60,
+                    it % 60
+                )
+            }"
         })
+        ourRv = v.findViewById(R.id.rvMain)
+        rvAdapter = RVAdapterMain(this)
+        ourRv.adapter = rvAdapter
+
+        mvm.getAll().observe(viewLifecycleOwner, {
+            rvAdapter.setTask(it)
+            Toast.makeText(requireContext(), "updated", Toast.LENGTH_SHORT).show()
+        })
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var temp=mvm.getAll().value
+            if (temp != null) {
+                for (i in mvm.getAll().value!!){
+                    Task.total_time.postValue(Task.total_time.value?.plus(i.Time_spent))
+                }
+            }
+        }
     }
 
 

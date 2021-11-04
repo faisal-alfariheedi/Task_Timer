@@ -2,6 +2,9 @@ package com.example.task_timer
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +14,11 @@ import com.example.task_timer.db.Task
 
 
 class Editor : Fragment() {
+    private lateinit var taskTitle: TextView
+    private lateinit var taskDescription: TextView
+    private lateinit var taskNameET: EditText
+    private lateinit var taskDescET: EditText
+    private lateinit var addBtn: Button
     private lateinit var rvAdapter: RVAdapter
     private lateinit var ourRv: RecyclerView
     val mvm by lazy { ViewModelProvider(this).get(ViewModel::class.java)}
@@ -24,9 +32,24 @@ class Editor : Fragment() {
         setHasOptionsMenu(true)
         init(v)
 
+        addBtn.setOnClickListener{
+            if(taskNameET.text.isEmpty()||taskDescET.text.isEmpty()){
+                Toast.makeText(requireContext(),"fields can`t be empty",Toast.LENGTH_SHORT).show()
+            }else{
+                mvm.addedit(Task(taskNameET.text.toString(), taskDescET.text.toString()))
+            }
+        }
+
         return v
     }
     fun init(v: View) {
+        taskTitle = v.findViewById(R.id.taskTitle)
+        taskDescription = v.findViewById(R.id.taskDescription)
+
+        taskNameET = v.findViewById(R.id.taskNameET)
+        taskDescET = v.findViewById(R.id.taskDesET)
+
+        addBtn = v.findViewById(R.id.addBtn)
 
         ourRv=v.findViewById(R.id.ourRv)
         rvAdapter=RVAdapter(this)
