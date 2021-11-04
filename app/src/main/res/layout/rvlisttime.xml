@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:layout_marginTop="20dp"
+    android:gravity="center_vertical"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -13,8 +15,9 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:clickable="false"
-        app:cardBackgroundColor="#AFCAC5"
+        android:gravity="center"
         app:cardCornerRadius="8dp"
+        android:layout_marginTop="30dp"
         tools:ignore="TouchTargetSizeCheck"
         tools:textAlignment="center">
 
@@ -22,30 +25,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:layout_gravity="center"
             android:paddingRight="5dp"
             android:paddingLeft="5dp">
 
             <LinearLayout
                 android:id="@+id/taskclick"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:clickable="true"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvtaskname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:layout_margin="4dp"
                     android:text="Task Name"
+                    android:textColor="#576764"
                     android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/tvtaskdesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/primaryDark"
                     android:text="Task Description"
+
                     android:textSize="20sp"
                     tools:layout_margin="4dp" />
             </LinearLayout>
@@ -62,8 +73,9 @@
 
                 <TextView
                     android:id="@+id/tvtimer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="130dp"
+                    android:layout_height="400px"
+                    android:background="@drawable/clock6"
                     android:clickable="true"
                     android:gravity="center"
                     android:minWidth="55dp"

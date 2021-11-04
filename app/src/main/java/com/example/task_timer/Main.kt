@@ -1,6 +1,7 @@
 package com.example.task_timer
 
 import android.content.DialogInterface
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -41,6 +43,14 @@ class Main : Fragment() {
         return v
     }
     fun init(v: View) {
+/*
+        val constraintLayout = v.findViewById<ConstraintLayout>(R.id.clMain)
+        val animationDrawable = constraintLayout.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(4000)
+        animationDrawable.start()
+
+ */
 
         tvtotal = v.findViewById(R.id.tvtotal)
         ourRv = v.findViewById(R.id.rvMain)

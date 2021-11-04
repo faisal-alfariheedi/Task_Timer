@@ -44,8 +44,8 @@ class Editor : Fragment() {
         return v
     }
     fun init(v: View) {
-        taskTitle = v.findViewById(R.id.taskTitle)
-        taskDescription = v.findViewById(R.id.taskDescription)
+       // taskTitle = v.findViewById(R.id.taskTitle)
+        //taskDescription = v.findViewById(R.id.taskDescription)
 
         taskNameET = v.findViewById(R.id.taskNameET)
         taskDescET = v.findViewById(R.id.taskDesET)

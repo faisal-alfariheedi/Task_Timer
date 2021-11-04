@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
+    android:background="@drawable/white_circle"
     tools:context=".Editor">
 
     <LinearLayout
@@ -17,49 +18,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/taskTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFE7F5F7"
-            android:text="@string/task_name"
-            android:textAlignment="center"
-            android:textSize="25sp" />
 
         <EditText
             android:id="@+id/taskNameET"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:hint="@string/enter_task_name"
+            android:hint="Task Title"
+            android:textAlignment="center"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
-        <TextView
-            android:id="@+id/taskDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#E7F5F7"
-            android:text="@string/task_description"
-            android:textAlignment="center"
-            android:textSize="25sp"/>
 
         <EditText
             android:id="@+id/taskDesET"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_task_description"
+            android:hint="Task Description"
+            android:textAlignment="center"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:autofillHints="" />
 
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="16dp"
-            android:text="@string/add_task"
+            android:text="Add Task"
             android:textSize="25sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
