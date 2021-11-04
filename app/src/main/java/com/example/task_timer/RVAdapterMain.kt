@@ -72,6 +72,7 @@ class RVAdapterMain(val cont: Fragment): RecyclerView.Adapter<RVAdapterMain.Item
                     if (cont is Main)
                         cont.mvm.addedit(rv[position])
                     holder.counter.cancel()
+
                 }
             }
         }
