@@ -43,14 +43,6 @@ class Main : Fragment() {
         return v
     }
     fun init(v: View) {
-/*
-        val constraintLayout = v.findViewById<ConstraintLayout>(R.id.clMain)
-        val animationDrawable = constraintLayout.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(2000)
-        animationDrawable.setExitFadeDuration(4000)
-        animationDrawable.start()
-
- */
 
         tvtotal = v.findViewById(R.id.tvtotal)
         ourRv = v.findViewById(R.id.rvMain)

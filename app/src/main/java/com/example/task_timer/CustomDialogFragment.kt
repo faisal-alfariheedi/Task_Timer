@@ -31,8 +31,8 @@ var edtask=task
         rootView.btnChange.setOnClickListener {
             val etTitle=rootView.findViewById<EditText>(R.id.etTitle)
             val etDec=rootView.findViewById<EditText>(R.id.etDec)
-            edtask.name=etTitle.toString()
-            edtask.desc=etDec.toString()
+            edtask.name=etTitle.text.toString()
+            edtask.desc=etDec.text.toString()
             if(frag is Editor)
             frag.mvm.addedit(edtask)
         }
